@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import cgi
+from html import escape
 
 
 PAGE_HTML = """
@@ -38,6 +38,8 @@ PAGE_HTML = """
 
         <h2>Multimedia support</h2>
         {h.section_multimedia}
+
+        {h.section_supplements}
 
         <h2>Copyright</h2>
         {h.section_copyright}
@@ -82,7 +84,7 @@ class HtmlHelpers():
     def maketable(self, data):
         html = ''
         for k in data:
-            v = cgi.escape(str(data[k]))
+            v = escape(str(data[k]))
             html += '<tr><td class="e">%s</td><td class="v">%s</td></tr>' % (k, v)
         return self.table(html)
 
@@ -138,6 +140,15 @@ class HtmlHelpers():
         return self.maketable(self.info['Multimedia support'])
 
     @property
+    def section_supplements(self):
+        if 'supplements' not in self.info:
+            return ''
+        html = ''
+        for supplement in self.info['supplements']:
+            html += '<h2>Supplement : ' + supplement + '</h2>' + self.maketable(self.info['supplements'][supplement])
+        return html
+
+    @property
     def section_copyright(self):
         text = self.info['Copyright'].replace('\n\n', '<br>') \
             .replace('\r\n', '<br />').replace('(c)', '&copy;')
@@ -177,10 +188,19 @@ def _guess_max_lengths(info):
 
 def render_text(info):
     """Create the text version of pyinfo."""
+
+    # patch info with each supplement
+    for sec in info:
+        if sec == 'supplements':
+            for supplement in info['supplements']:
+                info[supplement] = info['supplements'][supplement]
+
     d = []
     max_key_len, max_line_len = _guess_max_lengths(info)
 
     for sec in info:
+        if sec == 'supplements':
+            continue
         # build section title (2 = spaces for padding)
         title_size = len(sec)
         sym = "=" * int((max_line_len - title_size - 2) / 2)

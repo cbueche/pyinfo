@@ -97,6 +97,28 @@ APP = WSGIApplication([
 ])
 ```
 
+## Supplements
+
+If you want to add your own dictionaries into `info` (example below for a Django application to show HTTP headers and other details), you can use this syntax, it will simply add additional sections at the bottom of the HTML page.
+
+```python
+supplements = {}
+supplements['django_meta'] = request.META
+supplements['app_test'] = {'k1': 'v1', 'k2': 'v2'}
+info = pyinfo.info_as_html(supplements=supplements)
+return HttpResponse(info, content_type='text/html', )
+```
+
+Or as text :
+
+```python
+supplements = {}
+supplements['django_meta'] = request.META
+supplements['app_test'] = {'k1': 'v1', 'k2': 'v2'}
+info_txt = pyinfo.info_as_text(supplements=supplements)
+return HttpResponse(info_txt, content_type='text/text', )
+```
+
 # Installation
 
 ```bash

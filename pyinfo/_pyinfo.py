@@ -44,7 +44,7 @@ def imported(module):
     return 'disabled'
 
 
-def python_info():
+def python_info(kwargs):
     data = OrderedDict()
     data['System information'] = collect_system_info()
     data['Python internals'] = collect_py_internals()
@@ -60,6 +60,11 @@ def python_info():
 
     data['Multimedia support'] = collect_multimedia_info()
     data['Copyright'] = sys.copyright
+
+    # kwargs might contain more dicts to include
+    if 'supplements' in kwargs:
+        data['supplements'] = kwargs['supplements']
+
     return data
 
 
@@ -167,6 +172,7 @@ def collect_database():
     data['ODBC (mxODBC)'] = imported('mxODBC')
     data['Oracle (cx_Oracle)'] = imported('cx_Oracle')
     data['PostgreSQL (PyGreSQL)'] = imported('pgdb')
+    data['PostgreSQL (Psycopg)'] = imported('psycopg2')
     data['Python Data Objects (PyDO)'] = imported('PyDO')
     data['SAP DB (sapdbapi)'] = imported('sapdbapi')
     data['SQLite3'] = imported('sqlite3')
@@ -232,13 +238,13 @@ def collect_multimedia_info():
     return data
 
 
-def info_as_text():
-    info = python_info()
+def info_as_text(**kwargs):
+    info = python_info(kwargs)
     return renderers.render_text(info)
 
 
-def info_as_html():
-    info = python_info()
+def info_as_html(**kwargs):
+    info = python_info(kwargs)
     return renderers.render_html(info)
 
 
