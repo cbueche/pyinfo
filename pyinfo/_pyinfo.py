@@ -70,7 +70,8 @@ def collect_system_info():
     if hasattr(sys, 'subversion'):
         data['Python Subversion'] = ', '.join(sys.subversion)
 
-    if platform.dist()[0] != '' and platform.dist()[1] != '':
+    # platform.dist is obsolete since forever and removed in Python 3.8
+    if hasattr(platform, 'dist') and platform.dist()[0] != '' and platform.dist()[1] != '':
         osversion = '{} {} ({} {})'.format(platform.system(),
                                            platform.release(),
                                            platform.dist()[0].capitalize(),
