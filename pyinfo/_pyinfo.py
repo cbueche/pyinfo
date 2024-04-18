@@ -7,7 +7,7 @@ from collections import OrderedDict
 
 from . import renderers
 
-__version__ = '1.0.1'
+__version__ = '1.2.1'
 
 optional_modules_list = [
     'Cookie',
