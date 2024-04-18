@@ -14,7 +14,7 @@ optional_modules_list = [
     'zlib', 'gzip', 'bz2', 'zipfile', 'tarfile',
     'ldap',
     'socket',
-    'curses', 'imageop', 'wave', 'chunk',
+    'curses', 'imageop', 'wave',
     'colorsys', 'rgbimg',
     'adodbapi', 'cx_Oracle', 'ibm_db', 'mxODBC', 'MySQLdb', 'pgdb', 'PyDO',
     'sapdbapi', 'sqlite3'
@@ -224,7 +224,6 @@ def collect_multimedia_info():
     data = OrderedDict()
     data['Color System Conversion Support'] = ('colorsys')
     data['curses Support'] = imported('curses')
-    data['IFF Chunk Support'] = imported('chunk')
     data['Raw Image Support'] = imported('imageop')
     data['SGI RGB Support'] = imported('rgbimg')
     data['Wave Support'] = imported('wave')
