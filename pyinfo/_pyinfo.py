@@ -14,8 +14,8 @@ optional_modules_list = [
     'zlib', 'gzip', 'bz2', 'zipfile', 'tarfile',
     'ldap',
     'socket',
-    'audioop', 'curses', 'imageop', 'aifc', 'sunau', 'wave', 'chunk',
-    'colorsys', 'rgbimg', 'imghdr', 'sndhdr', 'ossaudiodev', 'sunaudiodev',
+    'curses', 'imageop', 'wave', 'chunk',
+    'colorsys', 'rgbimg',
     'adodbapi', 'cx_Oracle', 'ibm_db', 'mxODBC', 'MySQLdb', 'pgdb', 'PyDO',
     'sapdbapi', 'sqlite3'
 ]
@@ -222,18 +222,11 @@ def collect_socket_info():
 def collect_multimedia_info():
     """Return multimedia related information."""
     data = OrderedDict()
-    data['AIFF Support'] = imported('aifc')
     data['Color System Conversion Support'] = ('colorsys')
     data['curses Support'] = imported('curses')
     data['IFF Chunk Support'] = imported('chunk')
-    data['Image Header Support'] = imported('imghdr')
-    data['OSS Audio Device Support'] = imported('ossaudiodev')
-    data['Raw Audio Support'] = imported('audioop')
     data['Raw Image Support'] = imported('imageop')
     data['SGI RGB Support'] = imported('rgbimg')
-    data['Sound Header Support'] = imported('sndhdr')
-    data['Sun Audio Device Support'] = imported('sunaudiodev')
-    data['Sun AU Support'] = imported('sunau')
     data['Wave Support'] = imported('wave')
     return data
 
